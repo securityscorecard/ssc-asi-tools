@@ -25,7 +25,10 @@ or install (pictured) https://marketplace.visualstudio.com/items?itemName=ms-too
 <p align="center">
 <img align="center" width="490" height="548" src="https://github.com/securityscorecard/ssc-asi-tools/raw/dev/res/images/notebook.png"></p>
 
-
+## 𝖫𝖺𝗎𝗇𝖼𝗁 𝖲𝖲𝖢 𝖠𝖯𝖨 𝖭𝗈𝗍𝖾𝖻𝗈𝗈𝗄
+```
+❯ jupyter-notebook tools/notebooks/ASI.ipynb
+```
 
 ## 𝖨𝗇𝗌𝗍𝖺𝗅𝗅𝖺𝗍𝗂𝗈𝗇
 `Install Commands`
@@ -34,22 +37,14 @@ or install (pictured) https://marketplace.visualstudio.com/items?itemName=ms-too
 
  !Coming soon with additional tools!
 ```
-`Install messages`
-```
-    Installing build dependencies ... done
 
-```
 `Post Install Setup`
 
 ``` 
 Coming soon with additional tools.
 ```
 
-## 𝖫𝖺𝗎𝗇𝖼𝗁 𝖲𝖲𝖢 𝖠𝖯𝖨 𝖭𝗈𝗍𝖾𝖻𝗈𝗈𝗄
-```
-❯ cd API_Hunter/
-❯ python3 APIHunter.py
-```
+
 
 
 ## 𝗕𝗿𝗮𝗻𝗰𝗵𝗶𝗻𝗴 𝗚𝘂𝗶𝗱𝗲 ![header-logos](https://img.shields.io/static/v1?label=𝗔𝗖𝗧𝗜𝗩𝗘𝗕𝗥𝗔𝗡𝗖𝗛&logo=git&message=MASTER&color=blueviolet)
