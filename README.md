@@ -22,7 +22,7 @@ git clone https://github.com/securityscorecard/ssc-asi-tools.git
 
 2. Install Juypter Notebook - use pip or download binaries here: https://jupyter.org/
 ```
-pip3 jupyter notebook
+pip3 install jupyter notebook
 ```
 `install (pictured) https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter-renderers`
 
