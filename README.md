@@ -13,29 +13,49 @@
 <p align="center">
 <img align="center" width="748" height="348" src="https://github.com/securityscorecard/ssc-asi-tools/raw/dev/res/images/structure.png"></p> 
 
-`TLDR`
-```
-1. Clone the repo 
+`TLDR (Quickstart)`
 
-2. Install Juypter Notebook - https://jupyter.org/
-or install (pictured) https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter-renderers
+1. Clone the repo 
+```
+git clone https://github.com/securityscorecard/ssc-asi-tools.git
+```
+
+2. Install Juypter Notebook - use pip or download binaries here: https://jupyter.org/
+```
+pip3 jupyter notebook
+```
+`install (pictured) https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter-renderers`
 
 3. Configure .env (notebook will help you)
-``` 
-<p align="center">
-<img align="center" width="490" height="548" src="https://github.com/securityscorecard/ssc-asi-tools/raw/dev/res/images/notebook.png"></p>
 
-## 𝖫𝖺𝗎𝗇𝖼𝗁 𝖲𝖲𝖢 𝖠𝖯𝖨 𝖭𝗈𝗍𝖾𝖻𝗈𝗈𝗄
+
+## 𝖫𝖺𝗎𝗇𝖼𝗁 𝖲𝖲𝖢 𝖠𝖯𝖨 𝖭𝗈𝗍𝖾𝖻𝗈𝗈𝗄 𝘄𝗶𝘁𝗵 𝗩𝗦𝗰𝗼𝗱𝗲
+
+
+https://user-images.githubusercontent.com/3261849/203193021-e6daf90b-5f85-46fe-9313-458af03c5fed.mp4
+
+
+
+## 𝖫𝖺𝗎𝗇𝖼𝗁 𝖲𝖲𝖢 𝖠𝖯𝖨 𝖭𝗈𝗍𝖾𝖻𝗈𝗈𝗄 𝗳𝗿𝗼𝗺 𝘁𝗲𝗿𝗺𝗶𝗻𝗮𝗹
 ```
 ❯ jupyter-notebook tools/notebooks/ASI.ipynb
 ```
 
+
+https://user-images.githubusercontent.com/3261849/203191517-cb6a98c1-1e2a-445f-98b7-fc400ebd8f28.mp4
+
+
+## 𝖭𝗈𝗍𝖾𝖻𝗈𝗈𝗄 𝖰𝗎𝗂𝖼𝗄 𝖶𝖺𝗅𝗄𝗍𝗁𝗋𝗈𝗎𝗀𝗁
+
+
+https://user-images.githubusercontent.com/3261849/203194790-c72ca107-0371-4761-bfe4-e4ee14077db7.mp4
+
+
 ## 𝖨𝗇𝗌𝗍𝖺𝗅𝗅𝖺𝗍𝗂𝗈𝗇
 `Install Commands`
 ```
- ❯ No manual entry for ssc-asi-tools #Nothing to do!
+ ❯ pip3 install -r requirements
 
- !Coming soon with additional tools!
 ```
 
 `Post Install Setup`
