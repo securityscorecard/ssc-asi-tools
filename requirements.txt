@@ -1,0 +1,8 @@
+fade
+python-dotenv
+pathlib
+requests
+urllib
+shutil
+directory_structure
+alive_progress
