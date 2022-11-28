@@ -7,7 +7,6 @@
 from dotenv import load_dotenv
 from pathlib import Path
 import banner
-import query
 import os
 import fade
 load_dotenv('../.env')  
@@ -50,7 +49,7 @@ class SSC_API_Hunter():
                 "Authorization": "Token " + str(apiToken),
              }
    def show_menu(self):
-      import faded
+      import helper
 def menu():
    api_hunter = SSC_API_Hunter(apiToken)
    while True:
@@ -64,6 +63,6 @@ def menu():
           return
       else:
           pass
-          import help
+          import helper
 if __name__ == '__main__':
    menu()
