@@ -97,7 +97,7 @@ class SSC_Banner():
 
         console = Console()
         console.print(table)
-        
+
                     
    
             
