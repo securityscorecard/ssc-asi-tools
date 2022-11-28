@@ -9,9 +9,6 @@
 <p align="center">
 <img align="center" width="548" height="248" src="https://github.com/securityscorecard/ssc-asi-tools/raw/dev/res/images/ssc_ansi_banner.png"></p> 
 
-#### 𝗥𝗲𝗽𝗼 𝗦𝘁𝗿𝘂𝗰𝘁𝘂𝗿𝗲
-<p align="center">
-<img align="center" width="748" height="348" src="https://github.com/securityscorecard/ssc-asi-tools/raw/dev/res/images/structure.png"></p> 
 
 `TLDR`
 ```
@@ -21,6 +18,11 @@
 
 3. Configure .env (APIHunter.py will help you)
 ``` 
+## 𝗟𝗮𝘂𝗻𝗰𝗵 𝗦𝗦𝗖 𝗔𝗦𝗜 𝗛𝘂𝗻𝘁𝗲𝗿
+
+
+https://user-images.githubusercontent.com/3261849/204369399-864881a5-e49d-47ef-a2c1-5fdd751190ac.mp4
+
 
 
 ## 𝖨𝗇𝗌𝗍𝖺𝗅𝗅𝖺𝗍𝗂𝗈𝗇
@@ -31,7 +33,7 @@
  !Coming soon with additional tools!
 ```
 
-```
+
 `Post Install Setup`
 
 ``` 
@@ -40,7 +42,9 @@ Coming soon with additional tools.
 
 
 
-## 𝗕𝗿𝗮𝗻𝗰𝗵𝗶𝗻𝗴 𝗚𝘂𝗶𝗱𝗲 ![header-logos](https://img.shields.io/static/v1?label=𝗔𝗖𝗧𝗜𝗩𝗘𝗕𝗥𝗔𝗡𝗖𝗛&logo=git&message=MASTER&color=blueviolet)
+## 𝗕𝗿𝗮𝗻𝗰𝗵𝗶𝗻𝗴 𝗚𝘂𝗶𝗱𝗲 
+
+![header-logos](https://img.shields.io/static/v1?label=𝗔𝗖𝗧𝗜𝗩𝗘𝗕𝗥𝗔𝗡𝗖𝗛&logo=git&message=MASTER&color=blueviolet)
 <p align="center">
 <img align="center" width="300" height="75" src="https://github.com/securityscorecard/ssc-asi-tools/raw/dev/res/images/branch.header.png"></p> 
 
