@@ -20,7 +20,13 @@
 
 3. Configure .env (APIHunter.py will help you)
 ``` 
-
+`Parsing results`
+- Parsing code in progress: For now use `jq`!
+- Navigate to output directory
+`Examples: https://gist.github.com/NoDataFound/29de65ea2d72bc695c304dbe8bbb22c7`
+```
+find . -name '*.json' -type f | while read f ; do echo -n "$f:\n " ; cat "$f" | jq -r '.hits[] | [.cloud,.cloudRegion,.country,.countryCode,.cpe,.cves,.cvss,.detectedLibraries,.detectedLibraryVersion,.deviceType,.dnsRecords,.domains,.grade,.hasCVE,.hasCVEExploited,.hasInfection,.hasMalrep,.hasRansomware,.hasSSLCert,.hasScorecard,.hasThreatActor,.hostnames,.id,.industries,.infections,.ips,.mainAttribution,.maliciousReputation,.minGrade,.organizations,.osTypes,.ports,.products,.ransomwareGroups,.ransomwareVictims,.services,.sslValid,.threatActors,.time|select( . != null )]';done
+```
 ## 𝗟𝗮𝘂𝗻𝗰𝗵 𝗦𝗦𝗖 𝗔𝗦𝗜 𝗛𝘂𝗻𝘁𝗲𝗿
 
 https://user-images.githubusercontent.com/3261849/204369399-864881a5-e49d-47ef-a2c1-5fdd751190ac.mp4
