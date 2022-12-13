@@ -1,0 +1,5 @@
+{
+	"query": "8.8.8.8",
+	"index": "leakedcreds",
+	"parser": "structured"
+}
