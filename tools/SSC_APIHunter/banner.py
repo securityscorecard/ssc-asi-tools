@@ -76,7 +76,7 @@ class SSC_Banner():
                     icon = "🐍 " if path.suffix == ".py" else "📄 "
                     tree.add(Text(icon) + text_filename)
         try:
-            directory = os.path.abspath('/Users/coriankennedy/Repositories/ssc-asi-tools')
+            directory = os.path.abspath('.')
         except IndexError:
             print("[b]Usage:[/] python tree.py <DIRECTORY>")
         else:
