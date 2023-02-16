@@ -2,6 +2,14 @@
 <p align="center">
 <img align="left" width="48" height="48" src="https://github.com/securityscorecard/ssc-asi-tools/raw/dev/res/images/SSC.Ti.ANSI.48x48.png"></p> 
 
+![ASI_notebook](https://user-images.githubusercontent.com/3261849/219509542-857fd54c-5d7f-4bc2-9ed2-00024a293661.png)
+
+
+
+https://user-images.githubusercontent.com/3261849/219509632-32ee3ad3-8546-492d-8aff-22e947661c78.mp4
+
+
+
 ## SecurityScorecard | Attack Surface Intelligence tools repo
 ![](https://img.shields.io/static/v1?label=SecurityScorecard&message=ASI&color=6747ff)
 ![](https://img.shields.io/github/commit-status/securityscorecard/ssc-asi-tools/master/161553007a5590614ec31def7306b371eae04947?color=blue)
