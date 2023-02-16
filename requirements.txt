@@ -6,3 +6,4 @@ urllib
 shutil
 directory_structure
 alive_progress
+gradio
