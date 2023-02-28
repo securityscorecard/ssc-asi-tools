@@ -2,8 +2,9 @@ fade
 python-dotenv
 pathlib
 requests
-urllib
-shutil
+urllib3
 directory_structure
 alive_progress
 gradio
+rich
+inquirer
