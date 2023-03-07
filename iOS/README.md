@@ -23,11 +23,11 @@
 2. Obtain ASI API Token
     - Visit: https://platform.securityscorecard.io/#/my-settings/api to generate an API token
    
-3. Replace <Your API Token> in the authorization header with the token from step 2. 
+3. Replace `<Your API Token>` in the authorization header with the token from step 2. 
 
 `NOTE`
 ```
-    The Value field should read `‘Token th1sIsMySSCAPIToken’` for example.  
+    The Value field should read ‘Token th1sIsMySSCAPIToken’ for example.  
     IT NEEDS THE WORD TOKEN before the key itself.
 ```
 
