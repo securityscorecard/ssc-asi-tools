@@ -36,10 +36,9 @@ with open(args.file, 'r') as targets:
 
         data = {
 	            "query": ""+query+"",
-	            "cursor": "initial",
-	            "size": 1000
+	            "index": "leakedcreds",
+	            "parser": "structured"
                 }
-         
          
         response = requests.post(
              asseturl,
