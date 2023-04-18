@@ -30,5 +30,6 @@ python3 -m pip install -r requirements.txt
 
 4. Set API keys
 
+![sscGPT_API](https://user-images.githubusercontent.com/3261849/232921358-9781a9e4-c5eb-4519-8398-64d40a996f99.gif)
 
 ### Search ASI and perform chatGPT analyis of Results
