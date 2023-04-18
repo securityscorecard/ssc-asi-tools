@@ -10,6 +10,10 @@
 
 
 
+https://user-images.githubusercontent.com/3261849/232922536-679f8e8f-b011-4874-840c-52a4c5ce75f9.mp4
+
+
+
 `TLDR (Quickstart)`
 
 1. Clone the repo 
