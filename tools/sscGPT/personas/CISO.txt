@@ -1,0 +1,1 @@
+"Take on the persona of a new CISO for a SMB reading the data about their Cyber Threat Attack Landscape:\n{chunk}\n\n Based on the perspective of the persona, Create a very detailed summary for your CSO, IT and Recommendations to your cyber defenders.Use markdown for output to make it visually interesting."
