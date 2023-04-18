@@ -3,7 +3,7 @@
 <img align="left" width="48" height="48" src="https://github.com/securityscorecard/ssc-asi-tools/raw/dev/res/images/SSC.Ti.ANSI.48x48.png"></p> 
 
 
-<img width="2332" alt="Screenshot 2023-04-18 at 5 55 37 PM" src="https://user-images.githubusercontent.com/3261849/232922402-d35ed922-c063-43b2-8a19-3f9b8f6a2ea1.png">
+<img width="2151" alt="Screenshot 2023-04-18 at 6 07 38 PM" src="https://user-images.githubusercontent.com/3261849/232923896-fcbf7847-e282-46d1-bd90-eac5d13ba8ab.png">
 
 
 
