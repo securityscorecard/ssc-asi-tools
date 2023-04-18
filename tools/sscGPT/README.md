@@ -12,7 +12,12 @@
 
 https://user-images.githubusercontent.com/3261849/232922536-679f8e8f-b011-4874-840c-52a4c5ce75f9.mp4
 
+`Features`
 
+- The ability to search the SecurityScorecard Attack Surface Intelligence API for assets using a variety of prebuilt queries, as well as user-defined queries.
+- The ability to select and modify personas for chatGPT to perform various tasks.
+- The ability to generate analysis reports in JSON or CSV format.
+- The ability to search and filter through CSV results based on field name and value.
 
 `TLDR (Quickstart)`
 
