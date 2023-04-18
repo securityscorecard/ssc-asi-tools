@@ -2,7 +2,8 @@
 <p align="center">
 <img align="left" width="48" height="48" src="https://github.com/securityscorecard/ssc-asi-tools/raw/dev/res/images/SSC.Ti.ANSI.48x48.png"></p> 
 
-![ASI_notebook](https://user-images.githubusercontent.com/3261849/219509542-857fd54c-5d7f-4bc2-9ed2-00024a293661.png)
+
+<img width="2332" alt="Screenshot 2023-04-18 at 5 55 37 PM" src="https://user-images.githubusercontent.com/3261849/232922402-d35ed922-c063-43b2-8a19-3f9b8f6a2ea1.png">
 
 
 
