@@ -319,7 +319,7 @@ if st.sidebar.button("Generate sscGPT results"):
     for chunk in input_chunks:
         response = openai.Completion.create(
             engine="text-davinci-003",
-            prompt=f"{persona_text}",
+            prompt=f"data = {input_chunks} + {persona_text}" ,
             max_tokens=1024,
             n=1,
             stop=None,
