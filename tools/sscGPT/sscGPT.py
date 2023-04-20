@@ -83,7 +83,7 @@ st.write("<p style='text-align: justify; font-size: small; color: gray; font-sty
 st.write("""           
 Attack Surface Intelligence API Query guide: https://support.securityscorecard.com/hc/en-us/articles/7659237759515-Create-your-own-ASI-queries#h_01GAJMX665W3S871DBJ1C6QCK7
 
-Security Scorecard Research blog: https://securityscorecard.com/blog?category=research""")
+SecurityScorecard Research blog: https://securityscorecard.com/blog?category=research""")
 
 query_option = st.selectbox("(Optional) Select a prebuilt query:", prebuilt_queries)
 st.markdown("---")
@@ -125,7 +125,7 @@ if st.sidebar.button("Search"):
             for hit in results['hits']:
                 for key, value in hit.items():
                     textout.write(f"{key}: {value}\n")
-                textout.write("\n")
+                    textout.write("\n")
 
         with open(jsondir, 'r', encoding='UTF-8') as file:
             json_content = file.read()
@@ -154,7 +154,7 @@ if st.sidebar.button("Search"):
             for hit in results['hits']:
                 for key, value in hit.items():
                     textout.write(f"{key}: {value}\n")
-                textout.write("\n")
+                    textout.write("\n")
 
         with open(jsondir, 'r', encoding='UTF-8') as file:
             json_content = file.read()
@@ -183,7 +183,7 @@ if st.sidebar.button("Search"):
             for hit in results['hits']:
                 for key, value in hit.items():
                     textout.write(f"{key}: {value}\n")
-                textout.write("\n")
+                    textout.write("\n")
 
         with open(jsondir, 'r', encoding='UTF-8') as file:
             json_content = file.read()
@@ -312,22 +312,21 @@ if st.sidebar.button("Generate sscGPT results"):
             if ":" in line:
                 text_text = line.split(":", 1)[1].strip()
                 if text_text != "" and text_text != [""]:
-                    data = text_text.strip('\n')
+                    data = textfile.read()
                     input_chunks = [data[i:i+2000] for i in range(0, len(data), 2000)]
-
-    generated_text_chunks = []
-    for chunk in input_chunks:
-        response = openai.Completion.create(
-            engine="text-davinci-003",
-            prompt=f"data = {input_chunks} + {persona_text}" ,
-            max_tokens=1024,
-            n=1,
-            stop=None,
-            temperature=temperature
-        )
-        generated_text_chunks.append(response.choices[0].text.strip())
-        generated_text = '\n'.join(generated_text_chunks)
-        break
+                generated_text_chunks = []
+                for chunk in input_chunks:
+                    response = openai.Completion.create(
+                        engine="text-davinci-003",
+                        prompt=f"data = {chunk} {persona_text} do not print {chunk} directly. " ,
+                        max_tokens=1024,
+                        n=1,
+                        stop=None,
+                        temperature=temperature
+                    )
+                    generated_text_chunks.append(response.choices[0].text.strip())
+                    generated_text = '\n'.join(generated_text_chunks)
+                    break
     st.sidebar.markdown("---")
     st.write("<p style='text-align: justify; font-size: small; color: gray; font-style: italic;'>\
 <strong>Disclaimer:</strong> The information provided with this application is 'as-is' and you acknowledge and agree that SecurityScorecard, Inc. makes no representation or warranty, express or implied, as to the accuracy or completeness of the information. You agree that SecurityScorecard shall not have any liability resulting from your use of this information or reliance on the same.\
