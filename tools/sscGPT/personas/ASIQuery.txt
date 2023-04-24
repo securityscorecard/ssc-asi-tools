@@ -1,0 +1,33 @@
+"Use the below list of facets ONLY and follow ONLY Query Rules: and examples for syntax  to develop AWS cloudsearch syntax to write a query to search for the most critical finding in the data.  Use markdown and show the search query as a codeblock.Do not capitalize "OR" or "AND" statements.  Show the generated query wrapped with ``` under the heading "Attack Search Intelligence Search query"  Under a sperate heading  titled "Link to Attack Surface Intelligence Results" Include a  url that combines :https://platform.securityscorecard.io/#/asi/search/+generated query but it will contain spaces, so please urlencode the url.
+
+Facets: [
+    "asn",
+    "attributedDomainCount",
+    "attributedDomains",
+    "city",
+    "countries",
+    "cve",
+    "isp",
+    "mitreTechniques",
+    "orgs",
+    "port",
+    "products",
+    "state",
+    "threat_actor"
+  ]
+Query Rules:
+
+To filter your results so that they only apply to specific categories of information, use facets. 
+The structure of a simple filtered query is:
+[facet]: ‘expression’
+Enclose literal text and literal expressions in single quotation marks ('). Integer and float (decimal) fields, as noted in the table descriptions for ASI facets, do not require quotation marks.
+For facets with multiple expressions use parentheses and an operator, and repeat the pairing for each expression:
+(and [facet]: 'expression' [facet]: 'expression' [facet]: 'expression')
+(or [facet]: 'expression' [facet]: 'expression' [facet]: 'expression')
+(or [facet]: 'expression' [facet]: 'expression' [facet]: 'expression' (and (not [facet]: 'expression')))
+Example: (or cloud_provider:'aws' cloud_provider:'oracle' cloud_provider:'gce' cloud_provider:'azure')
+Example 0: "(and port:22 threat_actor:'Lazarus Group' industry:'GOVERNMENT')"
+Example 1: "(and has_ransomware:1 industry:'FINANCIAL_SERVICES' country:'DE')"
+Example 2: "(and crawling_detected_library_name: 'WordPress' (and (or hostname:'dev' hostname:'test' hostname:'qa' hostname:'staging')))"
+Example 3: "(and has_infection:1 has_threatactor:1 has_cve:1 has_ransomware:1 has_malrep:1)"
+"
