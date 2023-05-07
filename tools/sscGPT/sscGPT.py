@@ -495,7 +495,7 @@ with expand_section:
                 f.write(new_persona_prompt)
 
             if new_persona_name != selected_persona:
-                os.remove(personas, f"{selected_persona}.txt"))
+                os.remove(personas, f"{selected_persona}.txt")
                 persona_files.remove(selected_persona)
                 persona_files.append(new_persona_name)
                 selected_persona = new_persona_name
