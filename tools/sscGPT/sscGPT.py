@@ -415,7 +415,7 @@ persona_files = get_persona_files()
 #st.sidebar.info("Enter a URL to generate the search query")
 
 query_persona = 'ASIQuery'
-with open(os.path.join("personas", f"{query_persona}.txt"), "r") as f:
+with open(os.path.join("tools/sscGPT/personas", f"{query_persona}.txt"), "r") as f:
     persona_text = f.read()
 
 
