@@ -406,7 +406,7 @@ st.sidebar.markdown("----")
 
 
 def get_persona_files():
-    return [f.split(".")[0] for f in os.listdir("personas") if f.endswith(".txt")]
+    return [f.split(".")[0] for f in os.listdir("tools/sscGPT/personas") if f.endswith(".txt")]
 
 
 persona_files = get_persona_files()
