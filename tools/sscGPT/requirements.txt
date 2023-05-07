@@ -1,4 +1,9 @@
-openai
+requests
 streamlit
-pandas
 python-dotenv
+pandas
+openai
+bs4
+Pillow
+pyscreenshot
+langchain
