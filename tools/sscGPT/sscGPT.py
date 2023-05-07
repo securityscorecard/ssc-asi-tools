@@ -221,7 +221,7 @@ SecurityScorecard Research blog: https://securityscorecard.com/blog?category=res
         with sscquery_col:
             st.info('Generate Attack Surface Intelligence Query from URL')
         url = st.sidebar.text_input("", placeholder="Enter URL and press enter")
-        with open(os.path.join("personas", f"{query_persona}.txt"), "r") as f:
+        with open(os.path.join("tools/sscGPT/personas", f"{query_persona}.txt"), "r") as f:
             persona_text = f.read()
         if url:    
             try:
