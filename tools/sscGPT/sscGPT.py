@@ -382,7 +382,7 @@ if push == 1 :
 
 
 
-persona_files = [f.split(".")[0] for f in os.listdir(os.path.join( "/personas")) if f.endswith(".txt")]
+persona_files = [f.split(".")[0] for f in os.listdir("personas") if f.endswith(".txt")]
 
 
 st.sidebar.markdown("----")
