@@ -442,7 +442,7 @@ with oquery_col:
     sscpgt_button = st.sidebar.button("Generate sscGPT analysis")
 
 if sscpgt_button == 1 :
-        with open(os.path.join("personas", f"{selected_persona}.txt"), "r") as f:
+        with open(os.path.join("tools/sscGPT/personas", f"{selected_persona}.txt"), "r") as f:
             persona_text = f.read()
         with open(textdir, "r") as textfile:
             for line in textfile:
