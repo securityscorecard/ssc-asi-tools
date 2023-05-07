@@ -495,14 +495,14 @@ with expand_section:
                 f.write(new_persona_prompt)
 
             if new_persona_name != selected_persona:
-                os.remove(personas, f"{selected_persona}.txt")
+                os.remove(os.path.join(personas, f"{selected_persona}.txt"))
                 persona_files.remove(selected_persona)
                 persona_files.append(new_persona_name)
                 selected_persona = new_persona_name
 
         if st.button("➖ Delete Persona"):
             if st.warning("Persona Deleted"):
-                os.remove(personas, f"{selected_persona}.txt"))
+                os.remove(os.path.join(personas, f"{selected_persona}.txt"))
                 persona_files.remove(selected_persona)
                 selected_persona = ""
 expand_section = st.sidebar.expander("➕ Add new Persona", expanded=False)
