@@ -382,11 +382,9 @@ if push == 1 :
 
 
 
-#persona_files = [f.split(".")[0] for f in os.listdir("ssc_personas") if f.endswith(".txt")]
-repo_url = "https://api.github.com/repos/NoDataFound/sscGPT/contents/personas"
-response = requests.get(repo_url)
-response_json = response.json()
-persona_files = [f["name"].split(".")[0] for f in response_json if f["name"].endswith(".txt")]
+persona_files = [f.split(".")[0] for f in os.listdir(os.path.join(os.getcwd(), "personas")) if f.endswith(".txt")]
+
+
 st.sidebar.markdown("----")
 
 
