@@ -378,16 +378,8 @@ if push == 1 :
             mime="text/csv")
 
 
+persona_files = [f.split(".")[0] for f in os.listdir("tools/sscGPT/personas") if f.endswith(".txt")]
 
-
-cwd = os.getcwd()
-st.write("Current working directory:", cwd)
-
-# List directories
-dirs = os.listdir()
-st.write("Directories:", dirs)
-#persona_files = [f.split(".")[0] for f in os.listdir("personas") if f.endswith(".txt")]
-persona_files=None
 
 st.sidebar.markdown("----")
 
