@@ -41,7 +41,7 @@ os.environ['ASI_TOKEN'] = api_key
 
 default_temperature = 1.0
 temperature = default_temperature
-
+personas = os.path.join("tools/sscGPT/personas")
 #temperature = st.sidebar.slider(
 #    "Temperature | Creative >0.5", min_value=0.0, max_value=1.0, step=0.1, value=default_temperature
 #)
@@ -221,7 +221,7 @@ SecurityScorecard Research blog: https://securityscorecard.com/blog?category=res
         with sscquery_col:
             st.info('Generate Attack Surface Intelligence Query from URL')
         url = st.sidebar.text_input("", placeholder="Enter URL and press enter")
-        with open(os.path.join("tools/sscGPT/personas", f"{query_persona}.txt"), "r") as f:
+        with open(personas, f"{query_persona}.txt"), "r") as f:
             persona_text = f.read()
         if url:    
             try:
@@ -415,7 +415,7 @@ persona_files = get_persona_files()
 #st.sidebar.info("Enter a URL to generate the search query")
 
 query_persona = 'ASIQuery'
-with open(os.path.join("tools/sscGPT/personas", f"{query_persona}.txt"), "r") as f:
+with open(personas, f"{query_persona}.txt"), "r") as f:
     persona_text = f.read()
 
 
@@ -442,7 +442,7 @@ with oquery_col:
     sscpgt_button = st.sidebar.button("Generate sscGPT analysis")
 
 if sscpgt_button == 1 :
-        with open(os.path.join("tools/sscGPT/personas", f"{selected_persona}.txt"), "r") as f:
+        with open(personas, f"{selected_persona}.txt"), "r") as f:
             persona_text = f.read()
         with open(textdir, "r") as textfile:
             for line in textfile:
@@ -485,24 +485,24 @@ expand_section = st.sidebar.expander("👤 Manage Personas", expanded=False)
 with expand_section:
     #st.subheader("👤 Manage Personas")
     if selected_persona:
-        with open(os.path.join("personas", f"{selected_persona}.txt"), "r") as f:
+        with open(personas, f"{selected_persona}.txt"), "r") as f:
             persona_text = f.read()
         new_persona_name = st.text_input("Persona Name:", value=selected_persona)
         new_persona_prompt = st.text_area("Persona Prompt:", value=persona_text, height=100)
 
         if new_persona_name != selected_persona or new_persona_prompt != persona_text:
-            with open(os.path.join("personas", f"{new_persona_name}.txt"), "w") as f:
+            with open(personas, f"{new_persona_name}.txt"), "w") as f:
                 f.write(new_persona_prompt)
 
             if new_persona_name != selected_persona:
-                os.remove(os.path.join("personas", f"{selected_persona}.txt"))
+                os.remove(personas, f"{selected_persona}.txt"))
                 persona_files.remove(selected_persona)
                 persona_files.append(new_persona_name)
                 selected_persona = new_persona_name
 
         if st.button("➖ Delete Persona"):
             if st.warning("Persona Deleted"):
-                os.remove(os.path.join("personas", f"{selected_persona}.txt"))
+                os.remove(personas, f"{selected_persona}.txt"))
                 persona_files.remove(selected_persona)
                 selected_persona = ""
 expand_section = st.sidebar.expander("➕ Add new Persona", expanded=False)
@@ -517,12 +517,12 @@ with expand_section:
     else:
         new_persona_prompt = st.text_area("Persona Prompt:", height=100)
         if new_persona_name and new_persona_prompt:
-            with open(os.path.join("personas", f"{new_persona_name}.txt"), "w") as f:
+            with open(personas, f"{new_persona_name}.txt"), "w") as f:
                 f.write(new_persona_prompt)
             persona_files.append(new_persona_name)
             selected_persona = new_persona_name
     if selected_persona:
-        with open(os.path.join("personas", f"{selected_persona}.txt"), "r") as f:
+        with open(personas, f"{selected_persona}.txt"), "r") as f:
             persona_text = f.read()
     st.text("Press Enter to add")
 
