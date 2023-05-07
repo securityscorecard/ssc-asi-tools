@@ -380,10 +380,14 @@ if push == 1 :
 
 
 
+cwd = os.getcwd()
+st.write("Current working directory:", cwd)
 
-
-persona_files = [f.split(".")[0] for f in os.listdir("personas") if f.endswith(".txt")]
-
+# List directories
+dirs = os.listdir()
+st.write("Directories:", dirs)
+#persona_files = [f.split(".")[0] for f in os.listdir("personas") if f.endswith(".txt")]
+persona_files=None
 
 st.sidebar.markdown("----")
 
