@@ -306,7 +306,7 @@ elif search_type == "File Upload":
     
     file = st.sidebar.file_uploader("Choose a file")
     if file is not None:
-        content = file.readlines().decode("utf-8")
+        content = file.readlines()
         #content_lines = content.split("\n")
 
     sscassetlogo_col, sscassetquery_col = st.sidebar.columns([1, 10])
