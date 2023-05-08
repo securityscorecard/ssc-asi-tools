@@ -8,6 +8,8 @@ import streamlit as st
 from dotenv import load_dotenv, set_key
 import pandas as pd
 import os
+import io
+import zipfile
 import csv
 import openai
 from bs4 import BeautifulSoup
@@ -305,7 +307,54 @@ elif search_type == "File Upload":
     file = st.sidebar.file_uploader("Choose a file")
     if file is not None:
         content = file.read().decode("utf-8")
-        st.write(content)
+        content_lines = content.split("\n")
+        generated_text_chunks = []
+        for line in content_lines:
+            line = line.strip()
+            if ":" in line:
+                text_text = line.split(":", 1)[1].strip()
+                if text_text != "" and text_text != [""]:
+                    input_chunks = [
+                        content[i : i + 2500] for i in range(0, len(content), 2500)
+                    ]
+                for chunk in input_chunks:
+                    response = openai.Completion.create(
+                        engine="text-davinci-003",
+                        prompt=f"data = {chunk} {persona_text} do not print {chunk} directly. ",
+                        max_tokens=1024,
+                        n=1,
+                        stop=None,
+                        temperature=temperature,
+                    )
+                    generated_text_chunks.append(response.choices[0].text.strip())
+        generated_text = "\n".join(generated_text_chunks)
+
+        if generated_text:
+            # Create a zip file to store the generated text
+            zip_file = io.BytesIO()
+            with zipfile.ZipFile(zip_file, mode="w") as zf:
+                zf.writestr(f"{file.name}.txt", generated_text)
+
+            # Provide a download button to download the zip file
+            st.download_button(
+                label="Download Generated Text",
+                data=zip_file.getvalue(),
+                file_name=f"{file.name}.zip",
+                mime="application/zip",
+            )
+
+            # Delete the zip file after download
+            os.remove(f"{file.name}.zip")
+        else:
+            st.warning("No text generated.")
+
+
+
+
+
+
+
+        #st.write(content)
 
     sscassetlogo_col, sscassetquery_col = st.sidebar.columns([1, 10])
 
@@ -409,7 +458,36 @@ if push == 1:
             file_name=f"{query.replace(' ', '_')}.csv",
             mime="text/csv",
         )
+    elif search_type == "File Upload":
+        with open(textdir, "r") as textfile:
+            st.json(results)
+        with open(jsondir, "w", encoding="UTF-8") as jsonout:
+            json.dump(results, jsonout)
+        df = pd.DataFrame(results["hits"])
+        df.to_csv(csvdir, index=False)
+        with open(textdir, "w", encoding="UTF-8") as textout:
+            for hit in results["hits"]:
+                for key, value in hit.items():
+                    textout.write(f"{key}: {value}\n")
+                    textout.write("\n")
+        with open(jsondir, "r", encoding="UTF-8") as file:
+            json_content = file.read()
 
+        json_button = st.download_button(
+            label="Download JSON",
+            data=json_content,
+            file_name=f"{query.replace(' ', '_')}.json",
+            mime="application/json",
+        )
+        with open(csvdir, "r", encoding="UTF-8") as file:
+            csv_content = file.read()
+
+        csv_button = st.download_button(
+            label="Download CSV",
+            data=csv_content,
+            file_name=f"{query.replace(' ', '_')}.csv",
+            mime="text/csv",
+        )
 
 persona_files = [f.split(".")[0] for f in os.listdir(personas) if f.endswith(".txt")]
 
