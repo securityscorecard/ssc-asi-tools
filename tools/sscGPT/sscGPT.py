@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+# live chatGPT analyst
+# comparison of persona results
 import requests
 import json
 import streamlit as st
@@ -167,9 +168,10 @@ if query != "":
         unsafe_allow_html=True,
     )
 
-    if csvdir:
+    try:
         df = pd.read_csv(csvdir)
-    else:
+    except FileNotFoundError:
+        st.warning("No CSV file found for the given query.")
         df = pd.DataFrame()
 
     if not df.empty and show_csv:
@@ -206,6 +208,7 @@ if query != "":
         st.info("CSV table is hidden. Check the 'Show CSV' checkbox to display it.")
     else:
         st.warning("No data to display.")
+
 with st.expander("Quick Start", expanded=False):
     st.markdown(
         """
