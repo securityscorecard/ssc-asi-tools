@@ -53,15 +53,7 @@ headers = {
     "Authorization": "Token " + str(api_key),
 }
 
-def file_browser():
-    file = st.sidebar.file_uploader("Choose a file")
-    if file is not None:
-        content = file.read().decode("utf-8")
-        st.write(content)
 
-if __name__ == "__main__":
-
-    file_browser()
 def search_assets(query):
     data = {"query": query, "cursor": "initial", "size": 1000}
     response = requests.post(search_url, json=data, headers=headers).json()
@@ -309,6 +301,11 @@ elif search_type == "LeakedCreds":
     with sscassetquery_col:
         st.warning("Search ASI for LeakedCreds")
 elif search_type == "File Upload":
+    
+    file = st.sidebar.file_uploader("Choose a file")
+    if file is not None:
+        content = file.read().decode("utf-8")
+        st.write(content)
 
     sscassetlogo_col, sscassetquery_col = st.sidebar.columns([1, 10])
 
