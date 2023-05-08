@@ -53,7 +53,15 @@ headers = {
     "Authorization": "Token " + str(api_key),
 }
 
+def file_browser():
+    file = st.sidebar.file_uploader("Choose a file")
+    if file is not None:
+        content = file.read().decode("utf-8")
+        st.write(content)
 
+if __name__ == "__main__":
+
+    file_browser()
 def search_assets(query):
     data = {"query": query, "cursor": "initial", "size": 1000}
     response = requests.post(search_url, json=data, headers=headers).json()
@@ -115,7 +123,7 @@ logo_col, query_col, button_col = st.sidebar.columns([4, 5, 2])
 
 
 with logo_col:
-    asi_enpoints = ["All Assets", "LeakedCreds", "Prebuilt", "ASI Query from URL"]
+    asi_enpoints = ["All Assets", "LeakedCreds", "Prebuilt", "File Upload","ASI Query from URL"]
     search_type = st.selectbox("", asi_enpoints)
 
 
@@ -300,6 +308,15 @@ elif search_type == "LeakedCreds":
 
     with sscassetquery_col:
         st.warning("Search ASI for LeakedCreds")
+elif search_type == "File Upload":
+
+    sscassetlogo_col, sscassetquery_col = st.sidebar.columns([1, 10])
+
+    with sscassetlogo_col:
+        st.image("https://simpleicons.org/icons/securityscorecard.svg", width=50)
+
+    with sscassetquery_col:
+        st.warning("Read File contents and search ASI for each line")
 with button_col:
     st.write("")
     st.write("")
