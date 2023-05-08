@@ -328,7 +328,7 @@ elif search_type == "File Upload":
                     )
                     generated_text_chunks.append(response.choices[0].text.strip())
         generated_text = "\n".join(generated_text_chunks)
-
+        st.write(generated_text)
         if generated_text:
             # Create a zip file to store the generated text
             zip_file = io.BytesIO()
