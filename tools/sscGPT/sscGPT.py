@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# live chatGPT analyst
-# comparison of persona results
+
 import requests
 import json
 import streamlit as st
@@ -146,9 +145,9 @@ st.write(
 </p>",
     unsafe_allow_html=True,
 )
-textdir = "output/Text/" + query.replace(" ", "_").rstrip("\r\n") + ".txt"
-jsondir = "output/JSON/" + query.replace(" ", "_").rstrip("\r\n") + ".json"
-csvdir = "output/CSV/" + query.replace(" ", "_").rstrip("\r\n") + ".csv"
+textdir = "tools/sscGPT/output/Text/" + query.replace(" ", "_").rstrip("\r\n") + ".txt"
+jsondir = "tools/sscGPT/output/JSON/" + query.replace(" ", "_").rstrip("\r\n") + ".json"
+csvdir = "tools/sscGPT/output/CSV/" + query.replace(" ", "_").rstrip("\r\n") + ".csv"
 
 if query != "":
     show_csv = st.sidebar.checkbox("Show CSV")
