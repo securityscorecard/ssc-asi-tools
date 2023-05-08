@@ -306,17 +306,8 @@ elif search_type == "File Upload":
     
     file = st.sidebar.file_uploader("Choose a file")
     if file is not None:
-        content = file.read().decode("utf-8")
-        content_lines = content.split("\n")
-    
-
-
-
-
-
-
-
-        #st.write(content)
+        content = file.readlines().decode("utf-8")
+        #content_lines = content.split("\n")
 
     sscassetlogo_col, sscassetquery_col = st.sidebar.columns([1, 10])
 
@@ -421,7 +412,8 @@ if push == 1:
             mime="text/csv",
         )
     elif search_type == "File Upload":
-        for line in content_lines:
+        results = search_assets(query)
+        for line in content:
             line = line.strip()
             for chunk in line:
 
@@ -438,7 +430,7 @@ if push == 1:
                             textout.write("\n")
                 with open(jsondir, "r", encoding="UTF-8") as file:
                     json_content = file.read()
-        
+
                 json_button = st.download_button(
                     label="Download JSON",
                     data=json_content,
@@ -447,7 +439,7 @@ if push == 1:
                 )
                 with open(csvdir, "r", encoding="UTF-8") as file:
                     csv_content = file.read()
-        
+
                 csv_button = st.download_button(
                     label="Download CSV",
                     data=csv_content,
