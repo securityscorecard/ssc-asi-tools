@@ -3,7 +3,6 @@ streamlit
 python-dotenv
 pandas
 openai
-bs4
+beautifulsoup4
 Pillow
 pyscreenshot
-langchain
