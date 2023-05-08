@@ -122,7 +122,7 @@ with logo_col:
 
 
 with query_col:
-    query = st.text_input("", placeholder="Enter search query")
+    query = st.text_input("", placeholder="Enter search query", label_visibility="hidden")
     st.markdown(
         """
         <style>
