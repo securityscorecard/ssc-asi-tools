@@ -251,15 +251,16 @@ with open(os.path.join(personas, f"{query_persona}.txt"), "r") as f:
 
     if search_type == "ASI Query from URL":
         url = st.sidebar.text_input("", placeholder="Enter URL and press enter")
+        #send_to_asi = st.sidebar.checkbox("Check this box to send search to ASI")
         generated_text_chunks = []
         if url:
 
             try:
-                chunk_size = 2500
+                chunk_size = 2800
                 response = requests.get(url)
                 response.raise_for_status()
                 parsed_text = parse_html_to_text(response.text)
-                
+
                 num_chunks = len(parsed_text) // chunk_size + (len(parsed_text) % chunk_size > 0)
                 st.warning(f"`{num_chunks}` x `{chunk_size}` token (word) packages will be submitted to OpenAI model: `text-davinci-003`") 
                 for i in range(0, len(parsed_text), chunk_size):
@@ -280,18 +281,22 @@ with open(os.path.join(personas, f"{query_persona}.txt"), "r") as f:
                 col1, col2, col3 = st.columns(3)
                 col1.metric("HTML Word Count", total_size,total_size ) 
                 col2.metric("Token Packages", num_chunks,num_chunks ) 
-                col3.metric("Prompt Token Count", len(prompt), len(prompt))
+                col3.metric("Total Prompt Token Count", len(prompt), len(prompt))
                 st.markdown("----")
                 st.info("Generated Attack Surface Intelligence Query from URL")
-                
+
 
             except requests.exceptions.RequestException as e:
                 st.error(f"Error occurred while fetching the URL: {e}")
-            
+
             generated_text = '\n'.join(generated_text_chunks)
             query = completions.choices[0].text.strip()
-            assets = search_assets(query)
-            st.write(f"{generated_text_chunks[0]}")
+            if st.checkbox("Check this box to send search to ASI"):
+                query_str = generated_text_chunks[0].split(":")[1].strip() # Extract the query string
+                #st.write(f"Query: {query_str}")
+                assets = search_assets(query_str)
+                st.write(assets)
+            st.write(f"{generated_text_chunks[0]}")    
 
                     #st.write(total_size)  
                     #st.write(generated_text)
