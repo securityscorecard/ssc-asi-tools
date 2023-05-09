@@ -251,31 +251,31 @@ with open(os.path.join(personas, f"{query_persona}.txt"), "r") as f:
 
     if search_type == "ASI Query from URL":
         url = st.sidebar.text_input("", placeholder="Enter URL and press enter")
+        generated_text_chunks = []
         if url:
+
             try:
                 chunk_size = 2500
                 response = requests.get(url)
                 response.raise_for_status()
                 parsed_text = parse_html_to_text(response.text)
-                generated_text_chunks = []
+                
                 num_chunks = len(parsed_text) // chunk_size + (len(parsed_text) % chunk_size > 0)
-                st.info(f"`{num_chunks}` x `{chunk_size}` token (word) packages will be submitted to OpenAI model: `text-davinci-003`") 
+                st.warning(f"`{num_chunks}` x `{chunk_size}` token (word) packages will be submitted to OpenAI model: `text-davinci-003`") 
                 for i in range(0, len(parsed_text), chunk_size):
                     chunk = parsed_text[i:i+chunk_size]
                     chunk_length = len(chunk)
-                prompt_template = "Read contents of {}, parse for indicators and use as data {}. Do not print search results."
-                prompt = prompt_template.format(chunk, persona_asi)
-                completions = openai.Completion.create(
-                    engine="text-davinci-003",
-                    prompt=prompt,
-                    max_tokens=2024,
-                    n=1,
-                    stop=None,
-                    temperature=1.0,
-                )
-                generated_text_chunks.append(completions.choices[0].text.strip())
-                query = completions.choices[0].text.strip()
-                assets = search_assets(query)
+                    prompt_template = "Read contents of {}, parse for indicators and use as data {}. Do not print search results."
+                    prompt = prompt_template.format(chunk, persona_asi)
+                    completions = openai.Completion.create(
+                        engine="text-davinci-003",
+                        prompt=prompt,
+                        max_tokens=2024,
+                        n=1,
+                        stop=None,
+                        temperature=1.0,
+                    )
+                    generated_text_chunks.append(completions.choices[0].text.strip())    
                 total_size =  num_chunks * chunk_size
                 col1, col2, col3 = st.columns(3)
                 col1.metric("HTML Word Count", total_size,total_size ) 
@@ -283,15 +283,21 @@ with open(os.path.join(personas, f"{query_persona}.txt"), "r") as f:
                 col3.metric("Prompt Token Count", len(prompt), len(prompt))
                 st.markdown("----")
                 st.info("Generated Attack Surface Intelligence Query from URL")
-                st.write(f"{query}")
-                generated_text = '\n'.join(generated_text_chunks)
                 
-                #st.write(total_size)  
-                #st.write(generated_text)
-                #st.write(generated_text_chunks)
+
             except requests.exceptions.RequestException as e:
                 st.error(f"Error occurred while fetching the URL: {e}")
+            
+            generated_text = '\n'.join(generated_text_chunks)
+            query = completions.choices[0].text.strip()
+            assets = search_assets(query)
+            st.write(f"{generated_text_chunks[0]}")
 
+                    #st.write(total_size)  
+                    #st.write(generated_text)
+                    #st.write(generated_text_chunks)
+            
+        
         results = search_assets(query) 
         ssclogo_col, sscquery_col = st.sidebar.columns([1, 10])
         with ssclogo_col:
