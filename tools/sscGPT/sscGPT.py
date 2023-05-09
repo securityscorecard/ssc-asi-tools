@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# live chatGPT analyst
-# comparison of persona results
+#p
 import requests
 import json
 import streamlit as st
@@ -43,7 +42,7 @@ os.environ["ASI_TOKEN"] = api_key
 
 default_temperature = 1.0
 temperature = default_temperature
-personas = "tools/sscGPT/personas"
+personas = "ssc_personas"
 query_persona = "ASIQuery"
 default_persona = "ThreatHunter"
 with open(os.path.join(personas, f"{query_persona}.txt"), "r") as f:
@@ -109,7 +108,7 @@ with col2:
     st.header("𝖲𝖾𝖼𝗎𝗋𝗂𝗍𝗒𝖲𝖼𝗈𝗋𝖾𝖼𝖺𝗋𝖽 𝖠𝗍𝗍𝖺𝖼𝗄 𝖲𝗎𝗋𝖿𝖺𝖼𝖾 𝖨𝗇𝗍𝖾𝗅𝗅𝗂𝗀𝖾𝗇𝖼𝖾 𝖠𝖯𝖨")
 
 st.sidebar.image(
-    "https://raw.githubusercontent.com/securityscorecard/ssc-asi-tools/master/tools/sscGPT/images/ssc_logo.png"
+    "https://raw.githubusercontent.com/NoDataFound/sscGPT/master/tools/sscGPT/images/ssc_logo.png"
 )
 
 
@@ -126,7 +125,7 @@ with query_col:
     st.markdown(
         """
         <style>
-        
+
         input[type="text"] {
             width: 100%;
             padding: 7px 5px;
@@ -148,9 +147,9 @@ st.write(
 </p>",
     unsafe_allow_html=True,
 )
-textdir = "tools/sscGPT/output/Text/" + query.replace(" ", "_").rstrip("\r\n") + ".txt"
-jsondir = "tools/sscGPT/output/JSON/" + query.replace(" ", "_").rstrip("\r\n") + ".json"
-csvdir = "tools/sscGPT/output/CSV/" + query.replace(" ", "_").rstrip("\r\n") + ".csv"
+textdir = "output/Text/" + query.replace(" ", "_").rstrip("\r\n") + ".txt"
+jsondir = "output/JSON/" + query.replace(" ", "_").rstrip("\r\n") + ".json"
+csvdir = "output/CSV/" + query.replace(" ", "_").rstrip("\r\n") + ".csv"
 
 if query != "":
     show_csv = st.sidebar.checkbox("Show CSV")
@@ -225,15 +224,16 @@ with st.expander("Quick Start", expanded=False):
         - Search results will be sent to OpenAI and a report will be generated based on persona type"""
     )
     st.write(
-        """           
+        """
 Attack Surface Intelligence API Query guide: https://support.securityscorecard.com/hc/en-us/articles/7659237759515-Create-your-own-ASI-queries#h_01GAJMX665W3S871DBJ1C6QCK7
 
 SecurityScorecard Research blog: https://securityscorecard.com/blog?category=research"""
     )
+    st.markdown("---")
 with open(os.path.join(personas, f"{query_persona}.txt"), "r") as f:
     persona_text = f.read()
-    st.markdown("---")
     if search_type == "Prebuilt":
+
         ssclogo_col, sscquery_col = st.sidebar.columns([1, 10])
 
         with ssclogo_col:
@@ -241,35 +241,30 @@ with open(os.path.join(personas, f"{query_persona}.txt"), "r") as f:
 
         with sscquery_col:
             st.info("Select a prebuilt query")
-        query_option = st.sidebar.selectbox("", prebuilt_queries)
+        query_option = st.sidebar.selectbox("", prebuilt_queries, label_visibility="hidden")
+    
+    asi_persona = personas + "/ASIQuery.txt"
+    with open(asi_persona, "r") as f:
+            content = f.read()
+            persona_asi = personas + content
+            
+
     if search_type == "ASI Query from URL":
-        persona_asi = personas+"ASIQuery.txt".read()
-        ssclogo_col, sscquery_col = st.sidebar.columns([1, 10])
-
-        with ssclogo_col:
-            st.image("https://simpleicons.org/icons/securityscorecard.svg", width=50)
-
-        with sscquery_col:
-            st.info("Generate Attack Surface Intelligence Query from URL")
         url = st.sidebar.text_input("", placeholder="Enter URL and press enter")
-        
         if url:
             try:
+                chunk_size = 2500
                 response = requests.get(url)
                 response.raise_for_status()
-
-                img = ImageGrab.grab(bbox=(0, 0, 470, 380))
-                st.image(img, use_column_width=False)
-
-                container = st.container()
-
-                container.markdown(
-                    f'<p style="text-align: center; font-weight: bold;">Screenshot of {url}</p>',
-                    unsafe_allow_html=True,
-                )
                 parsed_text = parse_html_to_text(response.text)
+                generated_text_chunks = []
+                num_chunks = len(parsed_text) // chunk_size + (len(parsed_text) % chunk_size > 0)
+                st.info(f"`{num_chunks}` x `{chunk_size}` token (word) packages will be submitted to OpenAI model: `text-davinci-003`") 
+                for i in range(0, len(parsed_text), chunk_size):
+                    chunk = parsed_text[i:i+chunk_size]
+                    chunk_length = len(chunk)
                 prompt_template = "Read contents of {}, parse for indicators and use as data {}. Do not print search results."
-                prompt = prompt_template.format(parsed_text, persona_asi)
+                prompt = prompt_template.format(chunk, persona_asi)
                 completions = openai.Completion.create(
                     engine="text-davinci-003",
                     prompt=prompt,
@@ -278,52 +273,99 @@ with open(os.path.join(personas, f"{query_persona}.txt"), "r") as f:
                     stop=None,
                     temperature=1.0,
                 )
+                generated_text_chunks.append(completions.choices[0].text.strip())
                 query = completions.choices[0].text.strip()
                 assets = search_assets(query)
+                total_size =  num_chunks * chunk_size
+                col1, col2, col3 = st.columns(3)
+                col1.metric("HTML Word Count", total_size,total_size ) 
+                col2.metric("Token Packages", num_chunks,num_chunks ) 
+                col3.metric("Prompt Token Count", len(prompt), len(prompt))
                 st.markdown("----")
+                st.info("Generated Attack Surface Intelligence Query from URL")
                 st.write(f"{query}")
+                generated_text = '\n'.join(generated_text_chunks)
+                
+                #st.write(total_size)  
+                #st.write(generated_text)
+                #st.write(generated_text_chunks)
             except requests.exceptions.RequestException as e:
                 st.error(f"Error occurred while fetching the URL: {e}")
 
-results = search_assets(query)
-if search_type == "All Assets":
-
-    sscassetlogo_col, sscassetquery_col = st.sidebar.columns([1, 10])
-
-    with sscassetlogo_col:
-        st.image("https://simpleicons.org/icons/securityscorecard.svg", width=50)
-
-    with sscassetquery_col:
-        st.info("Search All ASI facets")
-elif search_type == "LeakedCreds":
-
-    sscassetlogo_col, sscassetquery_col = st.sidebar.columns([1, 10])
-
-    with sscassetlogo_col:
-        st.image("https://simpleicons.org/icons/securityscorecard.svg", width=50)
-
-    with sscassetquery_col:
-        st.warning("Search ASI for LeakedCreds")
-elif search_type == "File Upload":
+        results = search_assets(query) 
+        ssclogo_col, sscquery_col = st.sidebar.columns([1, 10])
+        with ssclogo_col:
+            st.image("https://simpleicons.org/icons/securityscorecard.svg", width=50)
+        with sscquery_col:
+            st.info("Generate Attack Surface Intelligence Query from URL")
     
-    file = st.sidebar.file_uploader("Choose a file")
-    if file is not None:
-        content = file.readlines()
-        #content_lines = content.split("\n")
+    if search_type == "All Assets":
 
-    sscassetlogo_col, sscassetquery_col = st.sidebar.columns([1, 10])
+        sscassetlogo_col, sscassetquery_col = st.sidebar.columns([1, 10])
 
-    with sscassetlogo_col:
-        st.image("https://simpleicons.org/icons/securityscorecard.svg", width=50)
+        with sscassetlogo_col:
+            st.image("https://simpleicons.org/icons/securityscorecard.svg", width=50)
 
-    with sscassetquery_col:
-        st.warning("Read File contents and search ASI for each line")
+        with sscassetquery_col:
+            st.info("Search All ASI facets")
+    if search_type == "LeakedCreds":
+        sscassetlogo_col, sscassetquery_col = st.sidebar.columns([1, 10])
+
+        with sscassetlogo_col:
+            st.image("https://simpleicons.org/icons/securityscorecard.svg", width=50)
+
+        with sscassetquery_col:
+            st.warning("Search ASI for LeakedCreds")
+    if search_type == "File Upload":
+
+        file = st.sidebar.file_uploader("Choose a file")
+        if file is not None:
+            content = file.readlines()
+            #content_lines = content.split("\n")
+
+        sscassetlogo_col, sscassetquery_col = st.sidebar.columns([1, 10])
+
+        with sscassetlogo_col:
+            st.image("https://simpleicons.org/icons/securityscorecard.svg", width=50)
+
+        with sscassetquery_col:
+            st.warning("Read File contents and search ASI for each line")
     with button_col:
         st.write("")
         st.write("")
-        push = st.button("𝖲𝖾𝖺𝗋𝖼𝗁")
-    if push == 1:
-        if search_type == "All Assets":
+        if st.button("𝖲𝖾𝖺𝗋𝖼𝗁"):
+            pass
+    if search_type == "All Assets":
+        results = search_assets(query)
+
+        st.json(results)
+        with open(jsondir, "w", encoding="UTF-8") as jsonout:
+            json.dump(results, jsonout)
+        df = pd.DataFrame(results["hits"])
+        df.to_csv(csvdir, index=False)
+        with open(textdir, "w", encoding="UTF-8") as textout:
+            for hit in results["hits"]:
+                for key, value in hit.items():
+                    textout.write(f"{key}: {value}\n")
+                    textout.write("\n")
+        with open(jsondir, "r", encoding="UTF-8") as file:
+            json_content = file.read()
+        json_button = st.download_button(
+            label="Download JSON",
+            data=json_content,
+            file_name=f"{query.replace(' ', '_')}.json",
+            mime="application/json",
+        )
+        with open(csvdir, "r", encoding="UTF-8") as file:
+            csv_content = file.read()
+        csv_button = st.download_button(
+            label="Download CSV",
+            data=csv_content,
+            file_name=f"{query.replace(' ', '_')}.csv",
+            mime="text/csv",
+        )
+    elif search_type == "LeakedCreds":
+            results = search_leaked_credentials(query)
             st.json(results)
             with open(jsondir, "w", encoding="UTF-8") as jsonout:
                 json.dump(results, jsonout)
@@ -335,36 +377,6 @@ elif search_type == "File Upload":
                         textout.write(f"{key}: {value}\n")
                         textout.write("\n")
             with open(jsondir, "r", encoding="UTF-8") as file:
-                json_content = file.read()
-
-            json_button = st.download_button(
-                label="Download JSON",
-                data=json_content,
-                file_name=f"{query.replace(' ', '_')}.json",
-                mime="application/json",
-            )
-            with open(csvdir, "r", encoding="UTF-8") as file:
-                csv_content = file.read()
-
-            csv_button = st.download_button(
-                label="Download CSV",
-                data=csv_content,
-                file_name=f"{query.replace(' ', '_')}.csv",
-                mime="text/csv",
-            )
-        elif search_type == "LeakedCreds":
-            results = search_assets(query)
-            st.json(results)
-            with open(jsondir, "w", encoding="UTF-8") as jsonout:
-                json.dump(results, jsonout)
-            df = pd.DataFrame(results["hits"])
-            df.to_csv(csvdir, index=False)
-            with open(textdir, "w", encoding="UTF-8") as textout:
-                for hit in results["hits"]:
-                    for key, value in hit.items():
-                        textout.write(f"{key}: {value}\n")
-                        textout.write("\n")
-            with open(jsondir, "r", encoding="UTF-8") as file:
 
                 json_content = file.read()
             json_button = st.download_button(
@@ -381,9 +393,8 @@ elif search_type == "File Upload":
                 data=csv_content,
                 file_name=f"{query.replace(' ', '_')}.csv",
                 mime="text/csv",
-            )
-
-        elif search_type == "Prebuilt":
+            )    
+    elif search_type == "Prebuilt":
             results = search_assets(query_option)
             st.json(results)
             with open(jsondir, "w", encoding="UTF-8") as jsonout:
@@ -413,7 +424,7 @@ elif search_type == "File Upload":
                 file_name=f"{query.replace(' ', '_')}.csv",
                 mime="text/csv",
             )
-        elif search_type == "File Upload":
+    elif search_type == "File Upload":
             results = search_assets(query)
             for line in content:
                 line = line.strip()
@@ -447,21 +458,15 @@ elif search_type == "File Upload":
                         data=csv_content,
                         file_name=f"{query.replace(' ', '_')}.csv",
                         mime="text/csv",
-                    )
-
+                    )    
 persona_files = [f.split(".")[0] for f in os.listdir(personas) if f.endswith(".txt")]
 
-
 st.sidebar.markdown("----")
-
 
 def get_persona_files():
     return [f.split(".")[0] for f in os.listdir(personas) if f.endswith(".txt")]
 
-
 persona_files = get_persona_files()
-
-
 ssclogo_col, sscquery_col = st.sidebar.columns([1, 10])
 
 with ssclogo_col:
@@ -470,7 +475,6 @@ with sscquery_col:
     st.error("👤 Select Persona")
 
 selected_persona = st.sidebar.selectbox("", [default_persona] + persona_files)
-
 
 st.sidebar.markdown("----")
 ologo_col, oquery_col = st.sidebar.columns([1, 10])
