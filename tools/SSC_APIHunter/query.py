@@ -64,7 +64,7 @@ class SSC_Query():
         }
         #------------------------------------ search setup  ------------------------------------ 
         
-        asseturl = 'https://platform-api.securityscorecard.io/asi/search'
+        asseturl = 'https://api.securityscorecard.io/asi/search'
         data = {
 	            "query": ""+search+"",
 	            "cursor": "initial",
@@ -165,7 +165,7 @@ class SSC_Query():
                     
         #------------------------------------ threat-actor  ------------------------------------ 
         if asi_endpoints =='threat-actor':
-            asseturl = 'https://platform-api.securityscorecard.io/asi/search'
+            asseturl = 'https://api.securityscorecard.io/asi/search'
             asiweb = "https://platform.securityscorecard.io/#/asi/search/"+search
             data = {
 	            "query": ""+search+"",
@@ -194,7 +194,7 @@ class SSC_Query():
                     print("\033[0;32m                      \033[0m"+line, end="")
         #------------------------------------ active-infections  ------------------------------------ 
         if asi_endpoints =='active-infections':
-            asseturl = 'https://platform-api.securityscorecard.io/asi/search'
+            asseturl = 'https://api.securityscorecard.io/asi/search'
             asiweb = "https://platform.securityscorecard.io/#/asi/search/"+search
             data = {
 	            "query": ""+search+"",
@@ -231,7 +231,7 @@ class SSC_Query():
 	            "cursor": "initial",
 	            "size": 1000
                 }
-            asseturl = 'https://platform-api.securityscorecard.io/asi/search'
+            asseturl = 'https://api.securityscorecard.io/asi/search'
             asiweb = "https://platform.securityscorecard.io/#/asi/search/"+search
             response = requests.post(asseturl, headers = headers, json = data).json()
             results = json.dumps(response, indent=4, sort_keys=True)
@@ -262,7 +262,7 @@ class SSC_Query():
                 "Authorization": "Token " +key,
                 #"Cookie":  cookie,
              }
-                asseturl = 'https://platform-api.securityscorecard.io/asi/search'
+                asseturl = 'https://api.securityscorecard.io/asi/search'
                 asiweb = "https://platform.securityscorecard.io/#/asi/search/"+search
                 data = {
 	            "query": ""+search+"",
