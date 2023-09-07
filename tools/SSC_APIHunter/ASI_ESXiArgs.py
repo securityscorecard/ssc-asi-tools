@@ -94,7 +94,7 @@ with open(sys.argv[2], 'r') as targets:
                 
                 
     for sscbl in ssc_policy:
-        asseturl = 'https://platform-api.securityscorecard.io/asi/search'
+        asseturl = 'https://api.securityscorecard.io/asi/search'
         data = {
 	            "query": ""+sscbl+"",
 	            "cursor": "initial",
